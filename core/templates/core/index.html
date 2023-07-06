@@ -46,7 +46,7 @@
     <div>
         {% if count != 0 %}
             {% for item in searchedJob %}
-           <a href="{% url 'report' pk=item.id %}"> <button type="button" class="btn btn-primary">Download Job Details</button></a>
+           <a> <button type="button" class="btn btn-primary">Download Job Details</button></a>
                 <p style="font-weight: bold;">{{item.job_name}}</p>
                     
                 <hr>

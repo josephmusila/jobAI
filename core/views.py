@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.db.models import Q
 from . import models
-from fpdf import FPDF
+# from fpdf import FPDF
 from django.http import HttpResponse
-from io import BytesIO
-from django.template.loader import get_template
-from xhtml2pdf import pisa  
+# from io import BytesIO
+# from django.template.loader import get_template
+# from xhtml2pdf import pisa  
 
 
 # Create your views here.
@@ -58,44 +58,44 @@ def searchJobView(request):
     return  render(request, 'core/index.html', context)
 
 
-def jobDetailReportView(request,pk):
-    job=models.Job.objects.get(pk=pk)
-    jobname=job.job_name
-    jobDescription=job.job_description
-    jobResponsibility=job.job_responsibilities
-    jobRequirement=job.job_requirements
+# def jobDetailReportView(request,pk):
+#     job=models.Job.objects.get(pk=pk)
+#     jobname=job.job_name
+#     jobDescription=job.job_description
+#     jobResponsibility=job.job_responsibilities
+#     jobRequirement=job.job_requirements
 
-    pdf=FPDF('P','mm','A4')
-    pdf.add_page()
-    pdf.set_font('courier','U',16)
-    # pdf.cell(40,10,jobname)
-    # pdf.set_font('courier', 'B', 16)
-    # pdf.cell(40, 10, 'Job Description',0,1)
-    # pdf.set_font('courier', '', 16)
-    # pdf.cell(40, 10, jobDescription,0,1)
-    # pdf.cell(40,40,jobRequirement)
-    pdf.cell(0, 10, txt=f"Name: {jobname}", ln=True)
-    pdf.cell(0, 10, txt=f"Name: {jobRequirement}", ln=True)
-
-
-
-    filname=f'{jobname}.pdf'
-    pdf.output(filname,'F')
-
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="dynamic.pdf"'
-    pdf.output(response)
-
-    return response
+#     pdf=FPDF('P','mm','A4')
+#     pdf.add_page()
+#     pdf.set_font('courier','U',16)
+#     # pdf.cell(40,10,jobname)
+#     # pdf.set_font('courier', 'B', 16)
+#     # pdf.cell(40, 10, 'Job Description',0,1)
+#     # pdf.set_font('courier', '', 16)
+#     # pdf.cell(40, 10, jobDescription,0,1)
+#     # pdf.cell(40,40,jobRequirement)
+#     pdf.cell(0, 10, txt=f"Name: {jobname}", ln=True)
+#     pdf.cell(0, 10, txt=f"Name: {jobRequirement}", ln=True)
 
 
-def render_to_pdf(template_src, context_dict={}):
-     template = get_template('core/report.html')
-     html  = template.render(context_dict)
-     result = BytesIO()
+
+#     filname=f'{jobname}.pdf'
+#     pdf.output(filname,'F')
+
+#     response = HttpResponse(content_type='application/pdf')
+#     response['Content-Disposition'] = 'attachment; filename="dynamic.pdf"'
+#     pdf.output(response)
+
+#     return response
+
+
+# def render_to_pdf(template_src, context_dict={}):
+#      template = get_template('core/report.html')
+#      html  = template.render(context_dict)
+#      result = BytesIO()
  
-     #This part will create the pdf.
-     pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
-     if not pdf.err:
-         return HttpResponse(result.getvalue(), content_type='application/pdf')
-     return None
+#      #This part will create the pdf.
+#      pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+#      if not pdf.err:
+#          return HttpResponse(result.getvalue(), content_type='application/pdf')
+#      return None
